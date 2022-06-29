@@ -1,0 +1,51 @@
+
+<div class="row m-3">
+	<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-3 pb-3">
+		<button (click)="orderTable(0)" type="button" class="btn btn-warning" *ngIf="hourAsc">Order Hours Asc</button>
+		<button (click)="orderTable(1)" type="button" class="btn btn-warning" *ngIf="!hourAsc">Order Hours Desc</button>
+		<br>
+		<div class="table-responsive">
+			<table class="table table-sm">
+			  <thead class="bg-info">
+				<tr>
+				  <th scope="col">#</th>
+				  <th scope="col">Employee Name</th>
+				  <th scope="col">Total Time in Month</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr *ngFor="let data of arrayShow; let index = index" [class.bg-danger] = "data.hours < 100">
+				  <th scope="row">{{index+1}}</th>
+				  <td>{{data.EmployeeName}}</td>
+				  <td>{{data.hours}}</td>
+				</tr>
+			  </tbody>
+			</table>
+			
+			<nav aria-label="Pagination">
+			  <ul class="pagination">
+				<li *ngIf="actualPage-1!=0" class="page-item">
+				  <a class="page-link" href="#" tabindex="-1" (click)="beforePage()">Previous</a>
+				</li>
+				<li *ngIf="actualPage-1!=0" class="page-item"><a class="page-link" href="#" (click)="beforePage()">{{actualPage-1}}</a></li>
+				<li class="page-item active">
+				  <a class="page-link" href="#">{{actualPage}}<span class="sr-only">{{actualPage}}</span></a>
+				</li>
+				<li *ngIf="actualPage<totalPage-1" class="page-item"><a class="page-link" href="#" (click)="nextPage()">{{actualPage+1}}</a></li>
+				<li *ngIf="actualPage<totalPage-1" class="page-item">
+				  <a class="page-link" href="#" (click)="nextPage()">Next</a>
+				</li>
+			  </ul>
+			</nav>
+		</div>
+		
+		<div style="display: block; width: 400px !important;">
+			<canvas baseChart
+				[data]="pieChartData"
+				[type]="pieChartType"
+			></canvas>
+		</div>
+
+	</div>
+</div>
+
